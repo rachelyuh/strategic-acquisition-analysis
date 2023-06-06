@@ -1,1 +1,1 @@
-# strategic-acquisition-analysis
+# Strategic AQ Analysis
