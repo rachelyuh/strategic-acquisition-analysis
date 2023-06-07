@@ -59,21 +59,61 @@
     </nav>
 
     
-    <div class = "container">
-      <div class="box animate fadeInDown two">
-        <h1>Acquivision</h1>
-        <center>
-          <h4> The Premier Merger Model Platform</h4>
-          <div class="box animate fadeIn three">
-            <a href = '/temp' style="padding-top: 500px;"> <h2> START </h2>  </a>
-          </div>
+    <div>
+      <div class = "container">
+        <div class = "row"> 
+          <div class = "col-6">
+            <center>
+              
+              <h3> BUYER </h3>
+              {% if new %}
+            <form method="post" action="/temp">
+              <label for="buyer">  </label>
+              <input type="text" name="buyer" />
+              <button type="submit" class="button">Submit</button>
+            </form>
+          {% endif %}
           
-        </center>
-        
+          </center>
+          
+          </div>
+          <div class = "col-6">
+            <center>
+              
+              
+              <div class = "container">
+                <h3> SELLER </h3>
+                {% if buyer %}
+                <form method="post" action="/temp">
+                    <label for="seller"> </label>
+                    <input type="text" name="seller" />
+                    <button type="submit" class="button">Find</button>
+                </form>
+                {% endif %}
+              </div>
+              
+              {% if seller %}
+              {% endif %}
+            </center>
+          </div>
+        </div>
       </div>
-  
-
-     
+      <center>
+    
+        {% if seller %} 
+        <div class = "container" style="padding-top: 450px;">
+          <form method="post" action="/results">
+            <label for="debt"> How much debt do you want to finance the acquisition? (in %)</label>
+            <input type="text" name="debt" />
+            <button type="submit" class="button">Find</button>
+        </form>
+        </div>
+        
+      {% endif %}
+        
+        
+    
+      </center>
       
       
     </div>
