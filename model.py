@@ -2,21 +2,9 @@ import requests
 import yfinance as yf
 
 
-def get_free_cash_flow(company):
-    response = requests.get(
-        f"https://financialmodelingprep.com/api/v3/cash-flow-statement/{company}?limit=120&apikey=4975d0effdd49277f9f496ce27032830")
-    data = response.json()
-    free_cash_flow = []
-    free_cash_flow.append(data[0]["freeCashFlow"])
-    free_cash_flow.append(data[1]["freeCashFlow"])
-    free_cash_flow.append(data[2]["freeCashFlow"])
-    free_cash_flow.append(data[3]["freeCashFlow"])
-    return free_cash_flow
-
-
 def get_interest_expense(company):
     response = requests.get(
-        f"https://financialmodelingprep.com/api/v3/income-statement/{company}?limit=120&apikey=4975d0effdd49277f9f496ce27032830")
+        f"https://financialmodelingprep.com/api/v3/income-statement/{company}?limit=120&apikey=8d8d7b6df8c7889b80fee22328d2c0dd")
     data = response.json()
     interest_expense = data[0]["interestExpense"]
     return interest_expense
@@ -24,19 +12,15 @@ def get_interest_expense(company):
 
 def get_total_debt(company):
     response = requests.get(
-        f"https://financialmodelingprep.com/api/v3/balance-sheet-statement/{company}?limit=120&apikey=4975d0effdd49277f9f496ce27032830")
+        f"https://financialmodelingprep.com/api/v3/balance-sheet-statement/{company}?limit=120&apikey=8d8d7b6df8c7889b80fee22328d2c0dd")
     data = response.json()
     total_debt = data[0]["totalDebt"]
     return total_debt
 
 
-def cost_of_debt(company):
-    return get_interest_expense(company)/get_total_debt(company)
-
-
 def get_target_debt(company):
     response = requests.get(
-        f"https://financialmodelingprep.com/api/v3/ratios-ttm/{company}?apikey=4975d0effdd49277f9f496ce27032830")
+        f"https://financialmodelingprep.com/api/v3/ratios-ttm/{company}?apikey=8d8d7b6df8c7889b80fee22328d2c0dd")
     data = response.json()
     target_debt = data[0]["debtRatioTTM"]
     return target_debt
@@ -44,7 +28,7 @@ def get_target_debt(company):
 
 def get_DCF(company):
     response = requests.get(
-        f"https://financialmodelingprep.com/api/v3/discounted-cash-flow/{company}?apikey=4975d0effdd49277f9f496ce27032830")
+        f"https://financialmodelingprep.com/api/v3/discounted-cash-flow/{company}?apikey=8d8d7b6df8c7889b80fee22328d2c0dd")
     data = response.json()
     DCF = data[0]["dcf"]
     return DCF
@@ -122,7 +106,8 @@ def combine_net_income(buyer_net_income, seller_net_income):
 
 def pre_tax_minus_interest(combined_net_income, company):
     for i in combined_net_income:
-        combined_net_income[i] -= additional_interest_on_debt(financing_debt(30, company))
+        combined_net_income[i] -= additional_interest_on_debt(
+            financing_debt(30, company))
         combined_net_income[i] -= forgone_interest(financing_cash(70, company))
     return combined_net_income
 
@@ -131,7 +116,6 @@ def post_tax_net_income(pre_tax_net_income):
     tax_rate = 0.25
     for i in pre_tax_net_income:
         pre_tax_net_income[i] *= (1 - tax_rate)
-    print(pre_tax_net_income)
     return pre_tax_net_income
 
 
@@ -144,23 +128,29 @@ def additional_shares(percent_cash, company):
     return financing_cash(percent_cash, company) / price_per_share(company)
 
 
-def final_shares_outstanding(buyer_shares_outstanding, new_shares):
-    return buyer_shares_outstanding + new_shares
+def final_shares_outstanding(buyer, percent_cash, seller):
+    return get_shares_outstanding(buyer) + additional_shares(percent_cash, seller)
 
 
-def yearly_eps(post_tax_earnings, total_shares):
+def yearly_eps(buyer, seller, percent_cash):
+    post_tax_earnings = post_tax_net_income(pre_tax_minus_interest(combine_net_income(
+        project_net_income(buyer), project_net_income(seller)), seller))
     for i in post_tax_earnings:
-        post_tax_earnings[i] /= total_shares
-    print(yearly_eps)
-    return yearly_eps
+        post_tax_earnings[i] /= final_shares_outstanding(
+            buyer, percent_cash, seller)
+    final_yearly_eps = post_tax_earnings
+    # print(final_yearly_eps)
+    return final_yearly_eps
 
 
 def change_in_yearly_eps(yearly_eps):
-    for i in yearly_eps:
-        return
+    dict = {}
+    for i in range(2023, 2028):
+        value = (yearly_eps[str(i)] - yearly_eps[str(i-1)]) / \
+            yearly_eps[str(i-1)]
+        dict[f'{i}'] = value * 100
+    # print(dict)
+    return dict
 
-post_tax_net_income(pre_tax_minus_interest(combine_net_income(project_net_income('AAPL'), combine_net_income(project_net_income('MSFT'))), 'MSFT'))
-post_tax_net_income(pre_tax_minus_interest(combine_net_income(project_net_income('AAPL'), project_net_income('MSFT')), additional_interest_on_debt(financing_debt(30, purchase_price('MSFT'))),
-                                           forgone_interest(financing_cash(70, purchase_price('MSFT')))))
-yearly_eps(post_tax_net_income(pre_tax_minus_interest(combine_net_income(project_net_income('AAPL', get_income_growth_rate('AAPL')), project_net_income('MSFT', get_income_growth_rate('MSFT'))), additional_interest_on_debt(financing_debt(30, purchase_price('MSFT'))),
-           forgone_interest(financing_cash(70, purchase_price('MSFT'))))), final_shares_outstanding(get_shares_outstanding('AAPL'), additional_shares(financing_cash(70, purchase_price('MSFT')), price_per_share(purchase_price('MSFT'), get_shares_outstanding('MSFT')))))
+
+change_in_yearly_eps(yearly_eps('AAPL', 'MSFT', 70))

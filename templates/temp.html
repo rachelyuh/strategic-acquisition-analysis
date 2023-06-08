@@ -65,15 +65,29 @@
           <div class = "col-6">
             <center>
               
-              <h3> BUYER </h3>
+             
               {% if new %}
+               <h3> Buyer </h3>
             <form method="post" action="/temp">
               <label for="buyer">  </label>
               <input type="text" name="buyer" />
               <button type="submit" class="button">Submit</button>
             </form>
           {% endif %}
-          
+          {% if buyer %}
+          <img src = "{{ buyer_information["image"]}}"></img>
+    
+            <h5> {{ buyer_information["companyName"]}} </h5>
+            <h4>  {{ buyer_information["sector"]}} </h4>
+            <h4>  {{ buyer_information["description"]}} </h4>
+          {% endif %}
+          {% if seller %}
+          <img src = "{{ buyer_information["image"]}}"></img>
+    
+            <h3> {{ buyer_information["companyName"]}} </h3>
+            <h4>  {{ buyer_information["sector"]}} </h4>
+            <h4>  {{ buyer_information["description"]}} </h4>
+          {% endif %}
           </center>
           
           </div>
@@ -82,7 +96,7 @@
               
               
               <div class = "container">
-                <h3> SELLER </h3>
+                <h3> Seller </h3>
                 {% if buyer %}
                 <form method="post" action="/temp">
                     <label for="seller"> </label>
@@ -93,6 +107,11 @@
               </div>
               
               {% if seller %}
+              <img src = "{{ seller_information["image"]}}"></img>
+    
+            <h3> {{ seller_information["companyName"]}} </h3>
+            <h4>  {{ seller_information["sector"]}} </h4>
+            <h4>  {{ seller_information["description"]}} </h4>
               {% endif %}
             </center>
           </div>
@@ -105,7 +124,7 @@
           <form method="post" action="/results">
             <label for="debt"> How much debt do you want to finance the acquisition? (in %)</label>
             <input type="text" name="debt" />
-            <button type="submit" class="button">Find</button>
+            <button type="submit" class="button">Submit</button>
         </form>
         </div>
         

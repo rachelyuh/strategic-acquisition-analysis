@@ -48,7 +48,7 @@ h2 {
 h3 {
   font-family: 'Roboto Mono', monospace;
   text-align: center;
-  font-size: 120px !important;
+  font-size: 80px !important;
   padding-top: 20px;
 }
 
@@ -56,6 +56,13 @@ h4{
   font-family: 'Roboto Mono', monospace;
   text-align: center;
   font-size: 20px !important;
+  padding-top: 2px;
+}
+
+h5 {
+  font-family: 'Roboto Mono', monospace;
+  text-align: center;
+  font-size: 100px !important;
   padding-top: 2px;
 }
 
@@ -92,7 +99,9 @@ a:hover {
 
 /* Under construction pages - image responsiveness dependent on device/screen size */
 img {
-  width: 30vw;
+  width: 15vw;
+  padding: 10px;
+  padding-top: 40px
 }
 
 /* To customize the color of the button background and text on the form (suggestions page) */
@@ -489,4 +498,72 @@ h1{
     -webkit-transform: none;
     transform: none;
   }
+}
+
+
+/* Timeline */
+body{margin-top:20px;}
+.timeline-steps {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap
+}
+
+.timeline-steps .timeline-step {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 1rem
+}
+
+@media (min-width:768px) {
+    .timeline-steps .timeline-step:not(:last-child):after {
+        content: "";
+        display: block;
+        border-top: .25rem dotted #f9744b;
+        width: 3.46rem;
+        position: absolute;
+        left: 7.5rem;
+        top: .3125rem
+    }
+    .timeline-steps .timeline-step:not(:first-child):before {
+        content: "";
+        display: block;
+        border-top: .25rem dotted #f9744b;
+        width: 3.8125rem;
+        position: absolute;
+        right: 7.5rem;
+        top: .3125rem
+    }
+}
+
+.timeline-steps .timeline-content {
+    width: 10rem;
+    text-align: center
+}
+
+.timeline-steps .timeline-content .inner-circle {
+    border-radius: 1rem;
+    height: 0.66 rem;
+    width: 0.66 rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9744b
+}
+
+.timeline-steps .timeline-content .inner-circle:before {
+    content: "";
+    background-color: #f9744b;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+    min-width: 2rem;
+    border-radius: 4.1rem;
+    opacity: .5
+}
+
+h6{
+  color: white !important
 }
