@@ -20,43 +20,45 @@
   </head>
   <body>
 
-    <!-- Navbar -->
-    <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
-    <!-- Create a navbar with a dark background -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-#102937">
-      <!-- Add a branding/logo for the navbar -->
-      <a class="navbar-brand" href="#">Logo</a>
-      
-    
-      <!-- Create a navbar toggle button that triggers the collapse behavior -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <!-- Add an icon for the navbar toggle button -->
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- Create a collapsible navbar content area -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <!-- Create an unordered list to hold the navigation links -->
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Profile</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+        <!-- Navbar -->
+  <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
+  <!-- Create a navbar with a dark background -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-#102937">
+    <!-- Add a branding/logo for the navbar -->
+    <a class="navbar-brand" href="#">Logo</a>
+
+
+    <!-- Create a navbar toggle button that triggers the collapse behavior -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- Add an icon for the navbar toggle button -->
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Create a collapsible navbar content area -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Create an unordered list to hold the navigation links -->
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Profile</a>
+        </li>
+        {% if session %}
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
 
     
     <div>
@@ -65,54 +67,76 @@
           <div class = "col-6">
             <center>
               
-             
-              {% if new %}
-               <h3> Buyer </h3>
-            <form method="post" action="/temp">
-              <label for="buyer">  </label>
-              <input type="text" name="buyer" />
-              <button type="submit" class="button">Submit</button>
-            </form>
-          {% endif %}
-          {% if buyer %}
-          <img src = "{{ buyer_information["image"]}}"></img>
-    
-            <h5> {{ buyer_information["companyName"]}} </h5>
-            <h4>  {{ buyer_information["sector"]}} </h4>
-            <h4>  {{ buyer_information["description"]}} </h4>
-          {% endif %}
-          {% if seller %}
-          <img src = "{{ buyer_information["image"]}}"></img>
-    
-            <h3> {{ buyer_information["companyName"]}} </h3>
-            <h4>  {{ buyer_information["sector"]}} </h4>
-            <h4>  {{ buyer_information["description"]}} </h4>
-          {% endif %}
-          </center>
-          
+            {% if new %}
+            <div class = "container">
+              <div class="box animate fadeInDown one">
+               <h3 style="padding-top: 200px;"> Buyer </h3>
+              <form method="post" action="/temp">
+                <label for="buyer">  </label>
+                <input type="text" name="buyer" />
+                <!-- <button type="submit" class="button">chch</button> -->
+              </form>
+              </div>
+              </div>
+            {% endif %}
+
+            {% if buyer %}
+            <div class = "container">
+              <div class="box animate fadeInDown one">
+              <img src = "{{ buyer_information["image"]}}"></img>
+              <h5> {{ buyer_information["companyName"]}} </h5>
+              <h4>  {{ buyer_information["sector"]}} </h4>
+              <!-- <h4>  {{ buyer_information["description"]}} </h4> -->
+              </div>
+              </div>
+            {% endif %}
+
+            {% if seller %}
+              <img src = "{{ buyer_information["image"]}}"></img>
+              <h3> {{ buyer_information["companyName"]}} </h3>
+              <h4>  {{ buyer_information["sector"]}} </h4>
+              <!-- <h4>  {{ buyer_information["description"]}} </h4> -->
+            {% endif %}
+            
+            </center>
           </div>
+
           <div class = "col-6">
             <center>
               
-              
-              <div class = "container">
-                <h3> Seller </h3>
+              <div class = "container">  
+                {% if new %}
+                <div class = "container">
+                  <div class="box animate fadeInDown one">
+                  <h3 style="padding-top: 200px;"> Seller </h3>
+                  </div>
+                  </div>
+                {% endif %}
+                
                 {% if buyer %}
-                <form method="post" action="/temp">
-                    <label for="seller"> </label>
-                    <input type="text" name="seller" />
-                    <button type="submit" class="button">Find</button>
-                </form>
+                
+                  <h3 style="padding-top: 200px;"> Seller </h3>
+                  <form method="post" action="/temp">
+                      <label for="seller"> </label>
+                      <input type="text" name="seller" />
+                      <!-- <button type="submit" class="button"> Find </button> -->
+                  </form>
+                  </div>
+                
                 {% endif %}
               </div>
               
               {% if seller %}
+              <div class = "container">
+                <div class="box animate fadeInDown one">
               <img src = "{{ seller_information["image"]}}"></img>
-    
-            <h3> {{ seller_information["companyName"]}} </h3>
-            <h4>  {{ seller_information["sector"]}} </h4>
-            <h4>  {{ seller_information["description"]}} </h4>
+              <h3> {{ seller_information["companyName"]}} </h3>
+              <h4>  {{ seller_information["sector"]}} </h4>
+              <!-- <h4>  {{ seller_information["description"]}} </h4> -->
+              </div>
+              </div>
               {% endif %}
+              
             </center>
           </div>
         </div>
@@ -120,15 +144,18 @@
       <center>
     
         {% if seller %} 
-        <div class = "container" style="padding-top: 450px;">
-          <form method="post" action="/results">
-            <label for="debt"> How much debt do you want to finance the acquisition? (in %)</label>
-            <input type="text" name="debt" />
-            <button type="submit" class="button">Submit</button>
-        </form>
-        </div>
-        
-      {% endif %}
+        <div class = "container">
+          <div class="box animate fadeInUp two">
+          <div class = "container" style="padding-top: 30px;">
+            <form method="post" action="/results">
+              <label for="debt"> How much debt do you want to finance the acquisition? (in %)</label>
+              <input type="text" name="debt" />
+              <!-- <button type="submit" class="button">Submit</button> -->
+            </form>
+          </div>
+          </div>
+          </div>
+        {% endif %}
         
         
     

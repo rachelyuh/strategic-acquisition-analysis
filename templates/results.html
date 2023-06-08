@@ -15,48 +15,62 @@
       crossorigin="anonymous"
     />
 
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/cdb.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/cdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/9d1d9a82d2.js" crossorigin="anonymous"></script>
+  
+
 
 
   </head>
   <body>
 
+   
     <!-- Navbar -->
-    <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
-    <!-- Create a navbar with a dark background -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-#102937">
-      <!-- Add a branding/logo for the navbar -->
-      <a class="navbar-brand" href="#">Logo</a>
-      
-    
-      <!-- Create a navbar toggle button that triggers the collapse behavior -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <!-- Add an icon for the navbar toggle button -->
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- Create a collapsible navbar content area -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <!-- Create an unordered list to hold the navigation links -->
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Profile</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
+  <!-- Create a navbar with a dark background -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-#102937">
+    <!-- Add a branding/logo for the navbar -->
+    <a class="navbar-brand" href="#">Logo</a>
+
+
+    <!-- Create a navbar toggle button that triggers the collapse behavior -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- Add an icon for the navbar toggle button -->
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Create a collapsible navbar content area -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Create an unordered list to hold the navigation links -->
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Profile</a>
+        </li>
+        {% if session %}
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
 
     
     <div>
@@ -76,88 +90,211 @@
             <div class="col">
                 <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">
                     <div class="timeline-step">
-                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2003">
+                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-original-title="2003">
                             <div class="inner-circle"></div>
                             <p class="h6 mt-3 mb-1">2023</p>
-                            <p class="h6 text-muted mb-0 mb-lg-0"> {{change_in_eps["2023"]}}</p>
+                            <p class="h6 mt-3 mb-1"><span id = "change_2023"> {{change_in_eps["2023"]}} </span> %</p>
                         </div>
                     </div>
                     <div class="timeline-step">
-                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2004">
+                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-original-title="2004">
                             <div class="inner-circle"></div>
                             <p class="h6 mt-3 mb-1">2024</p>
-                            <p class="h6 text-muted mb-0 mb-lg-0">{{change_in_eps["2024"]}}</p>
+                            <p class="h6 mt-3 mb-1"><span id = "change_2024"> {{change_in_eps["2024"]}} </span> %</p>
                         </div>
                     </div>
                     <div class="timeline-step">
-                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2005">
+                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-original-title="2005">
                             <div class="inner-circle"></div>
                             <p class="h6 mt-3 mb-1">2025</p>
-                            <p class="h6 text-muted mb-0 mb-lg-0">{{change_in_eps["2025"]}}</p>
+                            <p class="h6 mt-3 mb-1"><span id = "change_2025"> {{change_in_eps["2025"]}} </span> %</p>
                         </div>
                     </div>
                     <div class="timeline-step">
-                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2010">
+                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-original-title="2010">
                             <div class="inner-circle"></div>
                             <p class="h6 mt-3 mb-1">2026</p>
-                            <p class="h6 text-muted mb-0 mb-lg-0"> {{change_in_eps["2026"]}} </p>
+                            <p class="h6 mt-3 mb-1"> <span id = "change_2026"> {{change_in_eps["2026"]}} </span> % </p>
                         </div>
                     </div>
                     <div class="timeline-step mb-0">
-                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2020">
+                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-original-title="2020">
                             <div class="inner-circle"></div>
                             <p class="h6 mt-3 mb-1">2027</p>
-                            <p class="h6 text-muted mb-0 mb-lg-0">{{change_in_eps["2027"]}}</p>
+                            <p class="h6 mt-3 mb-1"><span id = "change_2027"> {{change_in_eps["2027"]}} </span> %</p>
                         </div>
                     </div>
                     <div class="timeline-step mb-0">
-                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2020">
+                        <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-original-title="2020">
                             <div class="inner-circle"></div>
                             <p class="h6 mt-3 mb-1">2028</p>
-                            <p class="h6 text-muted mb-0 mb-lg-0"> {{change_in_eps["2028"]}} </p>
+                            <p class="h6 mt-3 mb-1"> <span id = "change_2028"> {{change_in_eps["2028"]}} </span> %  </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-      
-      
+</div>
+
+<div class="container">
+    
+   
+    <div class="card">
+        <div class="card-body">
+            <canvas id="chLine"></canvas>
+        </div>
     </div>
+    
+</div>
+       
 
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 
-  
-     
+  <script>
+    /* chart.js chart examples */
+
+    // chart colors
+    var colors = ['#007bff', '#28a745', '#333333', '#c3e6cb', '#dc3545', '#6c757d'];
+
+    /* large line chart */
+    var chLine = document.getElementById("chLine");
+    var change_2023 = document.getElementById("change_2023");
+    var change_2024 = document.getElementById("change_2024");
+    var change_2025 = document.getElementById("change_2025");
+    var change_2026 = document.getElementById("change_2026");
+    var change_2027 = document.getElementById("change_2027");
+    var change_2028 = document.getElementById("change_2028");
+    var chartData = {
+      labels: ["2023", "2024", "2025", "2026", "2027", "2028"],
+      datasets: [{
+        data: [change_2023.textContent, change_2024.textContent, change_2025.textContent, change_2026.textContent, change_2027.textContent, change_2028.textContent], 
+        // textContent, innerHTML
+        backgroundColor: 'transparent',
+        borderColor: colors[0],
+        borderWidth: 4,
+        pointBackgroundColor: colors[0]
+      }
+        
+      ]
+    };
+    if (chLine) {
+      new Chart(chLine, {
+        type: 'line',
+        data: chartData,
+        options: {
+          scales: {
+            xAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }]
+          },
+          legend: {
+            display: false
+          },
+          responsive: true
+        }
+      });
+    }
+
+    /* 3 line charts */
+    var lineOptions = {
+      legend: {display: false},
+      tooltips: {interest: false, bodyFontSize: 11, titleFontSize: 11},
+      scales: {
+        xAxes: [
+          {
+            ticks: {
+              display: false
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false
+            }
+          }
+        ],
+        yAxes: [{display: false}]
+      },
+      layout: {
+        padding: {
+          left: 6,
+          right: 6,
+          top: 4,
+          bottom: 6
+        }
+      }
+    };
+
+    var chLine1 = document.getElementById("chLine1");
+    if (chLine1) {
+      new Chart(chLine1, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+          datasets: [
+            {
+              backgroundColor: '#ffffff',
+              borderColor: '#ffffff',
+              data: [10, 11, 4, 11, 4],
+              fill: false
+            }
+          ]
+        },
+        options: lineOptions
+      });
+    }
+    var chLine2 = document.getElementById("chLine2");
+    if (chLine2) {
+      new Chart(chLine2, {
+        type: 'line',
+        data: {
+          labels: ['A', 'B', 'C', 'D', 'E'],
+          datasets: [
+            {
+              backgroundColor: '#ffffff',
+              borderColor: '#ffffff',
+              data: [4, 5, 7, 13, 12],
+              fill: false
+            }
+          ]
+        },
+        options: lineOptions
+      });
+    }
+
+    var chLine3 = document.getElementById("chLine3");
+    if (chLine3) {
+      new Chart(chLine3, {
+        type: 'line',
+        data: {
+          labels: ['Pos', 'Neg', 'Nue', 'Other', 'Unknown'],
+          datasets: [
+            {
+              backgroundColor: '#ffffff',
+              borderColor: '#ffffff',
+              data: [13, 15, 10, 9, 14],
+              fill: false
+            }
+          ]
+        },
+        options: lineOptions
+      });
+    }
+
+  </script>
+
+ 
+</body>
 
 
     
     
-    <script src="script.js"></script>
-    <!-- Necessary Script -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-      integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
-      crossorigin="anonymous"
-    ></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
     
     
     
     
-    
-    
-    </body>
 </html>

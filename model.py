@@ -1,6 +1,6 @@
 import requests
 import yfinance as yf
-
+import asyncio
 
 def get_interest_expense(company):
     response = requests.get(
@@ -145,11 +145,11 @@ def yearly_eps(buyer, seller, percent_cash):
 
 def change_in_yearly_eps(yearly_eps):
     dict = {}
-    for i in range(2023, 2028):
+    for i in range(2023, 2029):
         value = (yearly_eps[str(i)] - yearly_eps[str(i-1)]) / \
             yearly_eps[str(i-1)]
-        dict[f'{i}'] = value * 100
-    # print(dict)
+        dict[f'{i}'] = round((value * 100), 1)
+    print(dict)
     return dict
 
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading Page</title>
+</head>
+<body>
+    <h1>Loading...</h1>
+    <!-- Add loading animation or message here -->
+    <!-- Add JavaScript code to make an AJAX request to fetch the data -->
+    <script>
+        // Make an AJAX request to get the data from the server
+        // Replace 'endpoint' with the URL of your Flask route that fetches the data
+        fetch('/fetch_data')
+            .then(response => response.json())
+            .then(percent => {
+                // Data has been loaded, redirect to the result page
+                window.location.href = '/result?percent=' +{percent};
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle error if needed
+            });
+    </script>
+</body>
+</html>
+
+
+
+
