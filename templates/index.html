@@ -60,20 +60,26 @@
     </div>
   </nav>
 
-    
     <div class = "container">
       <div class="box animate fadeInDown two">
-        <h1>Acquivision</h1>
+        {% if login %} 
+      <h1> Hello {{name}}</h1>
+      {%else%}
+      <h1>Acquivision</h1>
         <center>
           <h4> The Premier Merger Model Platform</h4>
+        </center>
+      
+      {%endif%}       
+      <center>
           <div class="box animate fadeIn three">
             <a href = '/temp' style="padding-top: 500px;"> <h2> START </h2>  </a>
           </div>
-
-          <!-- <div class="box animate fadeIn four">
+        </center>   
+        <!-- <div class="box animate fadeIn four">
             <a href = '/temp' style="padding-top: 500px;"> <h4> Confused? Click here for tutorial </h4>  </a>
           </div>
-           -->
+             -->
           
         </center>
         

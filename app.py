@@ -17,6 +17,10 @@ ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
 
+mongo_client = MongoClient("mongodb+srv://admin:vgpUxfIz3ETQyvtq@cluster0.sllrv7q.mongodb.net/?retryWrites=true&w=majority")
+db = mongo_client["Acquisition"]
+collection = db["Cluster0"]
+
 # import jsonify
 app = Flask(__name__)
 app.secret_key = env.get("APP_SECRET_KEY")
@@ -32,17 +36,14 @@ oauth.register(
     },
     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
-@app.route('/history')
+@app.route('/history', methods=["GET", "POST"])
 def history():
-    token = oauth.auth0.authorize_access_token()
-    user_info = oauth.auth0.parse_id_token(token)
+    
+    token_file = open("token.txt", "r")
+    sid = token_file.readline()
+    token_file.close()
+    return render_template('history.html', sid = sid)
 
-    # Store user data in the session
-    session['user'] = {
-        'id': user_info['sub'],
-        'name': user_info['name'],
-        'email': user_info['email']
-    }
 
     # Retrieve user data from the MongoDB collection
     user_data = users_collection.find_one({'user_id': user_info['sub']})
@@ -62,13 +63,21 @@ def login():
 
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
+    token_file = open("token.txt", "w")
     token = oauth.auth0.authorize_access_token()
+    token_file.write(token['userinfo']['given_name'])
+    token_file.close()
+    name = token['userinfo']['given_name']
     session["user"] = token
+    return render_template('index.html', name = name, login = True)
     return redirect("/")
 
 @app.route("/logout")
 def logout():
     session.clear()
+    token_file = open("token.txt","w")
+    token_file.truncate(0)
+    token_file.close()
     return redirect(
         "https://" + env.get("AUTH0_DOMAIN")
         + "/v2/logout?"
